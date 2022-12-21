@@ -1,5 +1,5 @@
 const { graphqlHTTP } = require("express-graphql");
-const { graphQLSchema } = require("../graphql/index.resolver");
+const { graphQLSchema } = require("../graphql/index.graqhql");
 const { verifyAccessToken } = require("../http/middlewares/verifyAccessToken");
 const { GQLConfig } = require("../utils/graphql.config");
 const { adminRouter } = require("./admin/admin.routes");

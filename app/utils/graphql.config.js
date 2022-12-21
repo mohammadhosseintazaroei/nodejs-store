@@ -1,8 +1,8 @@
-const { graphqlSchema } = require("../graphql/index.resolver");
+const {  graphQLSchema } = require("../graphql/index.graqhql");
 
 function GQLConfig(req, res) {
     return {
-        schema: graphqlSchema,
+        schema: graphQLSchema,
         graphiql: true,
         context: { req, res }
     }

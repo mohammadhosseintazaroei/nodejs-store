@@ -8,7 +8,7 @@ const BlogSchema = new Schema({
     text: { type: String, required: true },
     image: { type: String },
     tags: { type: [String], default: [] },
-    category: { type: [Types.ObjectId], ref: "categories",  required: true },
+    category: { type: Types.ObjectId, ref: "categories",  required: true },
     comments : { type : [CommentSchema], default : [] },
     likes : { type : [Types.ObjectId], ref: "user", default : [] },
     dislikes : { type : [Types.ObjectId], ref: "user", default : [] },
