@@ -66,7 +66,8 @@ module.exports = class Application {
     CreateServer() {
         const http = require('http');
         http.createServer(this.#app).listen(this.#PORT, () => {
-            console.log(`http://localhost:${this.#PORT}/api-doc/#/Admin-Panel/`);
+            console.log(`http://localhost:${this.#PORT}/swagger/`);
+            console.log(`http://localhost:${this.#PORT}/graphql/`);
         });
     }
 
