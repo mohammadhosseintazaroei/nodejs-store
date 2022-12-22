@@ -1,0 +1,31 @@
+{
+  products{
+    _id
+    title
+    text
+    short_text
+    images
+    imagesURL 
+    tags
+    category {
+      _id
+      title
+    }
+    price
+    discount
+    count
+    type
+    supplier {
+      first_name
+      last_name
+    }
+    features{
+      length
+      height
+      width
+      weight
+      colors
+      madein
+    }
+  }
+}

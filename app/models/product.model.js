@@ -33,7 +33,7 @@ const ProductSchema = new Schema({
 
 ProductSchema.index({ title: "text", short_text: "text", text: "text" })
 
-ProductSchema.virtual("ImagesURL").get(function(){
+ProductSchema.virtual("imagesURL").get(function(){
     return this.images.map(image => `${process.env.BASE_URL}:${process.env.APP_PORT}/${image}`)
 })
 
