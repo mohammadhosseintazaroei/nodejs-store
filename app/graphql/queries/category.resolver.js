@@ -1,9 +1,9 @@
 const { GraphQLList, GraphQLString } = require("graphql");
 const { CategoryModel } = require("../../models/categories.model");
-const { categoryType } = require("../typeDefs/category.type");
+const { CategoryType } = require("../typeDefs/category.type");
 
 const CategoriesResolver = {
-  type: new GraphQLList(categoryType),
+  type: new GraphQLList(CategoryType),
   resolve: async () => {
     const categories = await CategoryModel.find({ parent: undefined });
     return categories;
@@ -11,7 +11,7 @@ const CategoriesResolver = {
 };
 
 const CategoryChildResolver = {
-    type: new GraphQLList(categoryType),
+    type: new GraphQLList(CategoryType),
     args: {
       parent: { type: GraphQLString },
     },
@@ -20,7 +20,6 @@ const CategoryChildResolver = {
       const {parent } = args
       const categories = await CategoryModel.find({ parent });
       return categories
-      return categories;
     },
   };
 
