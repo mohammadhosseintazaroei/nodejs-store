@@ -95,7 +95,7 @@
 
 /**
  * @swagger
- *  /admin/category/children/{parent}:
+ *  /admin/category/children/{id}:
  *      get:
  *          tags: [Category(Admin-Panel)]
  *          summary: Gets the child categories of a parent
