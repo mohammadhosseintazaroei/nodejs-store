@@ -2,7 +2,7 @@ const path = require("path");
 const fs = require("fs");
 const JWT = require("jsonwebtoken");
 const { UserModel } = require("../models/user.model");
-const { JWT_TOKEN_SECRET_KEY, REFRESH_TOKEN_SECRET_KEY } = require("./constants");
+const { REFRESH_TOKEN_SECRET_KEY, ACCESS_TOKEN_SECRET_KEY } = require("./constants");
 const createError = require("http-errors");
 const redisClient = require("./init_redis");
 
@@ -15,10 +15,10 @@ async function SignAccessToken(user) {
     const { mobile } = user;
 
     const options = {
-        expiresIn: "7h"
+        expiresIn: "30d"
     };
 
-    return JWT.sign({ mobile }, JWT_TOKEN_SECRET_KEY, options)
+    return JWT.sign({ mobile }, ACCESS_TOKEN_SECRET_KEY, options)
 
 }
 
