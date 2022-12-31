@@ -1,5 +1,19 @@
-const { GraphQLObjectType, GraphQLString, GraphQLList } = require("graphql");
+const object = require("@hapi/joi/lib/types/object");
+const {
+  GraphQLObjectType,
+  GraphQLString,
+  GraphQLList,
+  GraphQLScalarType,
+  Kind,
+} = require("graphql");
+const { toObject, parseLiteral } = require("../utils");
 
+const AnyType = new GraphQLScalarType({
+  name: "anyType",
+  parseValue: toObject,
+  serialize:toObject,
+  parseLiteral:parseLiteral ,
+});
 const AuthorType = new GraphQLObjectType({
   name: "AuthorType",
   fields: {
@@ -13,10 +27,12 @@ const PublicCategoryType = new GraphQLObjectType({
   fields: {
     _id: { type: GraphQLString },
     title: { type: GraphQLString },
+
   },
 });
 
 module.exports = {
   AuthorType,
   PublicCategoryType,
+  AnyType
 };
