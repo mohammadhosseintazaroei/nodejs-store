@@ -1,17 +1,23 @@
-const { GraphQLList } = require("graphql");
+const { GraphQLList, GraphQLString } = require("graphql");
 const { ProductModel } = require("../../models/product.model");
 const { ProductType } = require("../typeDefs/product.type");
 
 const ProductResolver = {
   type: new GraphQLList(ProductType),
-  resolve: async () => {
-    return await ProductModel.find({}).populate([
+  args: {
+    category: { type: GraphQLString },
+  },
+
+  resolve: async (_, args) => {
+    const {category} = args
+    const findQuery = category ? { category } : {};
+    return await ProductModel.find(findQuery).populate([
       { path: "supplier" },
-      { path: "category" }
+      { path: "category" },
     ]);
   },
 };
 
 module.exports = {
-    ProductResolver,
+  ProductResolver,
 };
