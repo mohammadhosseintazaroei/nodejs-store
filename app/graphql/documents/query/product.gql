@@ -1,12 +1,31 @@
 {
-  products{
+  products {
     _id
     title
     text
     short_text
     images
-    imagesURL 
+    imagesURL
     tags
+    comments {
+      _id
+      comment
+      openToComment
+      createdAt
+      answers {
+        _id
+        comment
+        user {
+          first_name
+          last_name
+        }
+        createdAt
+      }
+      user {
+        first_name
+        last_name
+      }
+    }
     category {
       _id
       title
@@ -19,7 +38,7 @@
       first_name
       last_name
     }
-    features{
+    features {
       length
       height
       width

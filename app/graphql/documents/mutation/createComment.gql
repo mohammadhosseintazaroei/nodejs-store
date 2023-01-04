@@ -1,0 +1,34 @@
+mutation {
+  CreateCommentForBlog(
+    comment:"comment for blog",
+    blogID:"63a2cabe5d965a9906e0f492",
+    parent:"63b54963939af1014d8b24c4"
+  ){
+    statusCode,
+    data
+  }
+}
+
+
+mutation {
+  CreateCommentForCourse(
+    comment:"comment for course" , 
+    courseID:"636401ac16b6da9457c953f4",
+    parent:"63b475f895dfc679ad0b3e75"
+  ){
+    statusCode,
+    data
+  }
+}  
+
+mutation {
+  CreateCommentForProduct(
+    comment:"comment for product" , 
+    productID:"6342db625b26e0f307c095ec",
+    parent:"63b49f5f9bf61e224672a5a6"
+
+  ){
+    statusCode,
+    data
+  }
+}  

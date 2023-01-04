@@ -1,9 +1,28 @@
 {
-  blogs{
+  blogs {
     _id
     title
     short_text
     imageURL
+    comments {
+      _id
+      comment
+      openToComment
+      createdAt
+      answers {
+        _id
+        comment
+        user {
+          first_name
+          last_name
+        }
+        createdAt
+      }
+      user {
+        first_name
+        last_name
+      }
+    }
     author {
       _id
       first_name

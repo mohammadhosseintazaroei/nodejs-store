@@ -1,12 +1,30 @@
-
 {
   courses {
     _id
     title
-  	short_text
+    short_text
     image
     imageURL
     tags
+    comments {
+      _id
+      comment
+      openToComment
+      createdAt
+      answers {
+        _id
+        comment
+        user {
+          first_name
+          last_name
+        }
+        createdAt
+      }
+      user {
+        first_name
+        last_name
+      }
+    }
     category {
       _id
       title
@@ -25,7 +43,7 @@
       _id
       title
       text
-    episodes {
+      episodes {
         _id
         title
         text

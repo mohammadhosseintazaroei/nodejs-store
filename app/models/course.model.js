@@ -50,7 +50,7 @@ const CourseSchema = new Schema({
 
 CourseSchema.index({ title: "text", short_text: "text", text: "text" })
 
-CourseSchema.virtual("imgURL").get(function() {
+CourseSchema.virtual("imageURL").get(function() {
     return `${process.env.BASE_URL}:${process.env.APP_PORT}/${this.image}`
 })
 
