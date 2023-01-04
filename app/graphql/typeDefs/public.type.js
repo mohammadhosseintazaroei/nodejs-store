@@ -14,8 +14,8 @@ const AnyType = new GraphQLScalarType({
   serialize:toObject,
   parseLiteral:parseLiteral ,
 });
-const AuthorType = new GraphQLObjectType({
-  name: "AuthorType",
+const UserType = new GraphQLObjectType({
+  name: "UserType",
   fields: {
     _id: { type: GraphQLString },
     first_name: { type: GraphQLString },
@@ -30,9 +30,17 @@ const PublicCategoryType = new GraphQLObjectType({
 
   },
 });
+const ResponseType = new GraphQLObjectType({
+  name: "responseType",
+  fields: {
+    statusCode: { type: GraphQLString },
+    data: { type: AnyType },
+  },
+});
 
 module.exports = {
-  AuthorType,
+  UserType,
   PublicCategoryType,
-  AnyType
+  AnyType,
+  ResponseType
 };
