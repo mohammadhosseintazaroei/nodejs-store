@@ -9,6 +9,7 @@ const { CourseModel } = require("../../models/course.model");
 const { ProductModel } = require("../../models/product.model");
 const { CopyObject } = require("../../utils/functions");
 const { ResponseType } = require("../typeDefs/public.type");
+const { checkExistProduct, checkExistCourse, checkExistBlog } = require("../utils");
 const CreateCommentForBlog = {
   type: ResponseType,
   args: {
@@ -208,32 +209,6 @@ const CreateCommentForProduct = {
     };
   },
 };
-
-async function checkExistBlog(id) {
-  const blog = await BlogModel.findById(id);
-  if (!blog)
-    throw createHttpError.NotFound(
-      "No blog was found with this specification :("
-    );
-  return blog;
-}
-
-async function checkExistCourse(id) {
-  const course = await CourseModel.findById(id);
-  if (!course)
-    throw createHttpError.NotFound(
-      "No course was found with this specification :("
-    );
-  return course;
-}
-async function checkExistProduct(id) {
-  const product = await ProductModel.findById(id);
-  if (!product)
-    throw createHttpError.NotFound(
-      "No product was found with this specification :("
-    );
-  return product;
-}
 
 async function getComment(model, id) {
   const findedComment = await model.findOne(
