@@ -34,7 +34,11 @@ const ProductType = new GraphQLObjectType({
     type: { type: GraphQLString },
     supplier: { type: UserType },
     features: { type: FeaturesType },
-    comments:{type:new GraphQLList(CommentType)}
+    comments:{type:new GraphQLList(CommentType)},
+    likes:{type:new GraphQLList(GraphQLString)},
+    dislikes:{type:new GraphQLList(GraphQLString)}
+
+
   },
 });
 

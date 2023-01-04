@@ -9,6 +9,11 @@ const {
   CreateCommentForCourse,
   CreateCommentForProduct,
 } = require("./mutations/comment.resolver");
+const {
+  LikeProduct,
+  LikeCourse,
+  LikeBlog
+} = require("./mutations/likes.resolver");
 const { CourseResolver } = require("./queries/course.resolver");
 const { ProductResolver } = require("./queries/product.resolver");
 const { BlogType } = require("./typeDefs/blog.type");
@@ -29,6 +34,9 @@ const RootMutation = new GraphQLObjectType({
     CreateCommentForBlog,
     CreateCommentForCourse,
     CreateCommentForProduct,
+    LikeProduct,
+    LikeCourse,
+    LikeBlog
   },
 });
 
