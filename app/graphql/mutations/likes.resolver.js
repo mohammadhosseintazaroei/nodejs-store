@@ -119,10 +119,11 @@ const LikeBlog = {
     await BlogModel.updateOne({ _id: blogID }, updatedQuery);
     let message;
     if (!likedBlog) {
-      await BlogModel.updateOne(
-        { _id: blogID },
-        { $pull: { dislikes: user._id } }
-      );
+      if (disLikedBlog)
+        await BlogModel.updateOne(
+          { _id: blogID },
+          { $pull: { dislikes: user._id } }
+        );
       message = "the blog has been liked succesfuly";
     } else message = "the blog has been unliked succesfuly";
     return {
