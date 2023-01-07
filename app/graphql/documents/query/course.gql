@@ -6,23 +6,25 @@
     image
     imageURL
     tags
-    comments {
+        comments {
       _id
       comment
       openToComment
       createdAt
+      user {
+        _id
+        first_name
+        last_name
+      }
       answers {
         _id
         comment
+        createdAt
         user {
+          _id
           first_name
           last_name
         }
-        createdAt
-      }
-      user {
-        first_name
-        last_name
       }
     }
     category {
