@@ -78,10 +78,11 @@ const LikeCourse = {
     await CourseModel.updateOne({ _id: courseID }, updatedQuery);
     let message;
     if (!likedCourse) {
-      await CourseModel.updateOne(
-        { _id: courseID },
-        { $pull: { dislikes: user._id } }
-      );
+      if (disLikedCourse)
+        await CourseModel.updateOne(
+          { _id: courseID },
+          { $pull: { dislikes: user._id } }
+        );
       message = "the course has been liked succesfuly";
     } else message = "the course has been unliked succesfuly";
     return {
