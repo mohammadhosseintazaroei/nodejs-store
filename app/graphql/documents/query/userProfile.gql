@@ -1,0 +1,190 @@
+{
+  getUserBookmarkedBlogs{
+    _id
+  title
+  imageURL
+  short_text
+  text
+  bookmarks {
+    _id
+    first_name
+    last_name
+  }
+  likes {
+    _id
+    first_name
+    last_name
+  }
+  dislikes {
+    _id
+    first_name
+    last_name
+  }
+  comments {
+    _id
+    comment
+    openToComment
+    createdAt
+    answers {
+      _id
+      comment
+      user {
+        first_name
+        last_name
+      }
+      createdAt
+    }
+    user{
+      first_name
+      last_name
+    }
+
+  }
+  author{
+    first_name
+    last_name
+  }
+  category {
+    title
+    _id
+  }
+  }
+}
+
+
+
+{
+  getUserBookmarkedCourses {
+    _id
+    title
+    short_text
+    image
+    imageURL
+    tags
+    likes {
+      _id
+      first_name
+      last_name
+    }
+    dislikes {
+      _id
+      first_name
+      last_name
+    }
+    comments {
+      _id
+      comment
+      openToComment
+      createdAt
+      user {
+        _id
+        first_name
+        last_name
+      }
+      answers {
+        _id
+        comment
+        createdAt
+        user {
+          _id
+          first_name
+          last_name
+        }
+      }
+    }
+    category {
+      _id
+      title
+    }
+    price
+    discount
+    count
+    type
+    status
+    teacher {
+      _id
+      first_name
+      last_name
+    }
+    chapters {
+      _id
+      title
+      text
+      episodes {
+        _id
+        title
+        text
+        type
+        time
+        videoAddress
+        videoURL
+      }
+    }
+  }
+}
+
+
+
+{
+  getUserBookmarkedProducts {
+      _id
+    title
+    text
+    short_text
+    images
+    imagesURL
+    tags
+    likes {
+      _id
+      first_name
+      last_name
+    }
+    dislikes {
+      _id
+      first_name
+      last_name
+    }
+    comments {
+      _id
+      comment
+      openToComment
+      createdAt
+      user {
+        _id
+        first_name
+        last_name
+      }
+      answers {
+        _id
+        comment
+        createdAt
+        user {
+          _id
+          first_name
+          last_name
+        }
+      }
+    }
+    category {
+      _id
+      title
+    }
+    price
+    discount
+    count
+    type
+    supplier {
+      first_name
+      last_name
+    }
+    features {
+      length
+      height
+      width
+      weight
+      colors
+      madein
+    }
+
+  }
+}

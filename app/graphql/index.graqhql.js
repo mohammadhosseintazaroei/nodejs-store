@@ -5,6 +5,11 @@ const {
   CategoryChildResolver,
 } = require("./queries/category.resolver");
 const {
+  getUserBookmarkedBlogs,
+  getUserBookmarkedCourses,
+  getUserBookmarkedProducts
+} = require("./queries/user-profile.resolver");
+const {
   CreateCommentForBlog,
   CreateCommentForCourse,
   CreateCommentForProduct,
@@ -24,6 +29,8 @@ const {
   BookmarkCourse,
   BookmarkBlog
 } = require("./mutations/bookmarks.resolver");
+
+
 const { CourseResolver } = require("./queries/course.resolver");
 const { ProductResolver } = require("./queries/product.resolver");
 const { BlogType } = require("./typeDefs/blog.type");
@@ -36,6 +43,9 @@ const RootQuery = new GraphQLObjectType({
     categories: CategoriesResolver,
     childOfCategory: CategoryChildResolver,
     courses: CourseResolver,
+    getUserBookmarkedBlogs,
+    getUserBookmarkedCourses,
+    getUserBookmarkedProducts
   },
 });
 const RootMutation = new GraphQLObjectType({
