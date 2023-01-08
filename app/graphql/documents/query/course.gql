@@ -6,7 +6,17 @@
     image
     imageURL
     tags
-        comments {
+    likes {
+      _id
+      first_name
+      last_name
+    }
+    dislikes {
+      _id
+      first_name
+      last_name
+    }
+    comments {
       _id
       comment
       openToComment

@@ -4,6 +4,16 @@
     title
     short_text
     imageURL
+    likes {
+      _id
+      first_name
+      last_name
+    }
+    dislikes {
+      _id
+      first_name
+      last_name
+    }
     comments {
       _id
       comment
