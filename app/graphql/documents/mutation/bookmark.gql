@@ -1,0 +1,26 @@
+mutation {
+  BookmarkBlog (
+    blogID:"63a2cabe5d965a9906e0f492",
+  ){
+    statusCode,
+    data
+  }
+}
+
+mutation {
+  BookmarkCourse(
+    courseID:"636400f316b6da9457c953f1",
+  ){
+    statusCode,
+    data
+  }
+}
+
+mutation {
+  BookmarkProduct(
+    productID:"6342db625b26e0f307c095ec",
+  ){
+    statusCode,
+    data
+  }
+}

@@ -19,6 +19,8 @@ const CourseResolver = {
       { path: "comments.answers.user" },
       { path: "likes" },
       { path: "dislikes" },
+      { path: "bookmarks" },
+
     ]);
   },
 };
