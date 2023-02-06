@@ -7,7 +7,7 @@ const Router = require("./routes/router");
 const createError = require("http-errors");
 const swaggerUI = require("swagger-ui-express");
 const swaggerJsDoc = require("swagger-jsdoc");
-
+const cors = require("cors")
 module.exports = class Application {
     #app = express();
     #PORT;
@@ -27,6 +27,11 @@ module.exports = class Application {
         this.#app.use(express.json())
         this.#app.use(express.urlencoded({ extended: true }));
         this.#app.use(express.static(path.join(__dirname, '..', "public")));
+        this.#app.use(cors({
+            origin: 'http://localhost:3000',
+            methods: ['POST', 'PUT', 'GET', 'OPTIONS', 'HEAD'],
+            credentials: true
+          }));
         this.#app.use("/swagger", swaggerUI.serve)
         this.#app.get("/swagger", swaggerUI.setup(swaggerJsDoc({
             swaggerDefinition: {
