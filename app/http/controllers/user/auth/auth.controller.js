@@ -36,11 +36,11 @@ class UserAuthController extends Controller {
             const token = await SignAccessToken(user);
             const refreshToken = await SignRefreshToken(user._id);
             return res.json({
+                success:true,
                 accessToken: token,
                 refreshToken
             });
         } catch (error) {
-        console.log(error)
             next(error);
             
         }

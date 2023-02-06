@@ -69,20 +69,18 @@ const AddCourseToBasket = {
     const user = await VerifyAccessTokenInGraphQL(req);
     const { courseID } = args;
     await checkExistCourse(courseID);
+    const userCourse = await UserModel.findOne({
+      _id: user._id,
+      Courses: courseID,
+    });
+    if (userCourse)
+      throw new createHttpError.BadRequest(
+        "شما این دوره رو قبلا خریداری کردید"
+      );
     const course = await findCourseInBasket(user._id, courseID);
 
     if (course) {
-      await UserModel.updateOne(
-        {
-          _id: user._id,
-          "basket.courses.courseID": courseID,
-        },
-        {
-          $inc: {
-            "basket.courses.$.count": 1,
-          },
-        }
-      );
+      throw createHttpError.BadRequest("این دوره قبلا به سبد خرید اضافه شده");
     } else {
       await UserModel.updateOne(
         {
@@ -118,8 +116,9 @@ const RemoveProductFromBasket = {
     const { productID } = args;
     await checkExistProduct(productID);
     const product = await findProductInBasket(user._id, productID);
-let message ;
-if(!product) throw createHttpError.NotFound("your desired product was not found");
+    let message;
+    if (!product)
+      throw createHttpError.NotFound("your desired product was not found");
     if (product.count > 1) {
       await UserModel.updateOne(
         {
@@ -137,23 +136,22 @@ if(!product) throw createHttpError.NotFound("your desired product was not found"
       await UserModel.updateOne(
         {
           _id: user._id,
-          "basket.products.productID":productID,
+          "basket.products.productID": productID,
         },
         {
           $pull: {
             "basket.products": {
-              productID, 
+              productID,
             },
           },
         }
       );
-      message = "the product was removed from the sopping card"
-
+      message = "the product was removed from the sopping card";
     }
     return {
       statusCode: 200,
       data: {
-        message
+        message,
       },
     };
   },
@@ -170,7 +168,8 @@ const RemoveCourseFromBasket = {
     const { courseID } = args;
     await checkExistCourse(courseID);
     const course = await findCourseInBasket(user._id, courseID);
-    if(!course) throw createHttpError.NotFound("your desired course was not found");
+    if (!course)
+      throw createHttpError.NotFound("your desired course was not found");
 
     if (course.count > 1) {
       await UserModel.updateOne(
@@ -185,7 +184,6 @@ const RemoveCourseFromBasket = {
         }
       );
       message = "the course was decreased from the sopping card";
-
     } else {
       await UserModel.updateOne(
         {
@@ -201,7 +199,6 @@ const RemoveCourseFromBasket = {
         }
       );
       message = "the course was removed from the sopping card";
-
     }
     return {
       statusCode: 200,
@@ -220,7 +217,6 @@ async function findProductInBasket(userID, productID) {
   const userDetail = CopyObject(findResult);
   return userDetail?.basket?.products?.[0];
 }
-
 
 async function findCourseInBasket(userID, courseID) {
   const findResult = await UserModel.findOne(

@@ -1,7 +1,7 @@
 const joi = require("@hapi/joi");
 
 const GetOtpSchema = joi.object({
-    mobile: joi.string().required().pattern(/(0|\+98)?([ ]|-|[()]){0,2}9[1|2|3|4]([ ]|-|[()]){0,2}(?:[0-9]([ ]|-|[()]){0,2}){8}/i)
+    mobile: joi.string().required().pattern(/(0|\+98)?([ ]|-|[()]){0,2}9[1|2|3|4]([ ]|-|[()]){0,2}(?:[0-9]([ ]|-|[()]){0,2}){8}/i).error(new Error("Phone Number is not valid"))
 })
 
 const CheckOtpSchema = joi.object({

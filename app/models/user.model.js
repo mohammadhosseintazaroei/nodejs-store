@@ -30,6 +30,7 @@ const UserSchema = new Schema({
     birthday : { type : String },
     Role : { type : String, default : "USER", ref: "permissions" },
     Courses: { type: [ Types.ObjectId ], ref: "course", default: [] },
+    Products: { type: [ Types.ObjectId ], ref: "product", default: [] },
     basket:{type:BasketSchema}
 }, {
     timestamps: true,

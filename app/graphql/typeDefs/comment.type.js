@@ -1,5 +1,5 @@
 const { GraphQLObjectType, GraphQLString, GraphQLBoolean, GraphQLList } = require("graphql");
-const { UserType, AnyType } = require("./public.type");
+const { UserType } = require("./public.type");
 
 const CommentAnswerType = new GraphQLObjectType({
   name: "CommentAnswerType",
