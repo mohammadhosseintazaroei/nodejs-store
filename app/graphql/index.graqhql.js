@@ -7,7 +7,8 @@ const {
 const {
   getUserBookmarkedBlogs,
   getUserBookmarkedCourses,
-  getUserBookmarkedProducts
+  getUserBookmarkedProducts,
+  getUserBasket
 } = require("./queries/user-profile.resolver");
 const {
   CreateCommentForBlog,
@@ -53,7 +54,8 @@ const RootQuery = new GraphQLObjectType({
     courses: CourseResolver,
     getUserBookmarkedBlogs,
     getUserBookmarkedCourses,
-    getUserBookmarkedProducts
+    getUserBookmarkedProducts,
+    getUserBasket
   },
 });
 const RootMutation = new GraphQLObjectType({
