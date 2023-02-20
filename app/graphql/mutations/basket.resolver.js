@@ -1,5 +1,7 @@
 const { GraphQLString, GraphQLInt } = require("graphql");
 const createHttpError = require("http-errors");
+const { StatusCodes: HttpStatus } = require("http-status-codes");
+
 const {
   VerifyAccessTokenInGraphQL,
 } = require("../../http/middlewares/verifyAccessToken");
@@ -51,7 +53,7 @@ const AddProductToBasket = {
       );
     }
     return {
-      statusCode: 200,
+      statusCode: HttpStatus.OK,
       data: {
         message: "the product was added to basket",
       },
@@ -97,7 +99,7 @@ const AddCourseToBasket = {
       );
     }
     return {
-      statusCode: 200,
+      statusCode: HttpStatus.OK,
       data: {
         message: "the course was added to basket",
       },
@@ -149,7 +151,7 @@ const RemoveProductFromBasket = {
       message = "the product was removed from the sopping card";
     }
     return {
-      statusCode: 200,
+      statusCode: HttpStatus.OK,
       data: {
         message,
       },
@@ -201,7 +203,7 @@ const RemoveCourseFromBasket = {
       message = "the course was removed from the sopping card";
     }
     return {
-      statusCode: 200,
+      statusCode: HttpStatus.OK,
       data: {
         message,
       },

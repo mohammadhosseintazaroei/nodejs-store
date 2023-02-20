@@ -1,6 +1,8 @@
 const { GraphQLString } = require("graphql");
 const createHttpError = require("http-errors");
 const { default: mongoose } = require("mongoose");
+const { StatusCodes: HttpStatus } = require("http-status-codes");
+
 const {
   VerifyAccessTokenInGraphQL,
 } = require("../../http/middlewares/verifyAccessToken");
@@ -46,7 +48,7 @@ const CreateCommentForBlog = {
       if (!createAnswerResult.modifiedCount)
         throw createHttpError.InternalServerError("ثبت پاسخ انجام نشد");
       return {
-        statusCode: 201,
+        statusCode: HttpStatus.CREATED,
         data: {
           message: "پاسخ شما با موفقیت ثبت شد",
         },
@@ -67,7 +69,7 @@ const CreateCommentForBlog = {
       );
     }
     return {
-      statusCode: 201,
+      statusCode: HttpStatus.CREATED,
       data: {
         message: "پاسخ شما با موفقیت ثبت شد",
       },
@@ -112,7 +114,7 @@ const CreateCommentForCourse= {
       if (!createAnswerResult.modifiedCount)
         throw createHttpError.InternalServerError("ثبت پاسخ انجام نشد");
       return {
-        statusCode: 201,
+        statusCode: HttpStatus.CREATED,
         data: {
           message: "پاسخ شما با موفقیت ثبت شد",
         },
@@ -133,7 +135,7 @@ const CreateCommentForCourse= {
       );
     }
     return {
-      statusCode: 201,
+      statusCode: HttpStatus.CREATED,
       data: {
         message: "پاسخ شما با موفقیت ثبت شد",
       },
@@ -181,7 +183,7 @@ const CreateCommentForProduct = {
         if (!createAnswerResult.modifiedCount)
         throw createHttpError.InternalServerError("ثبت پاسخ انجام نشد");
         return {
-          statusCode: 201,
+          statusCode: HttpStatus.CREATED,
           data: {
             message: "پاسخ شما با موفقیت ثبت شد",
           },
@@ -202,7 +204,7 @@ const CreateCommentForProduct = {
       );
     }
     return {
-      statusCode: 201,
+      statusCode: HttpStatus.CREATED,
       data: {
         message: "پاسخ شما با موفقیت ثبت شد",
       },

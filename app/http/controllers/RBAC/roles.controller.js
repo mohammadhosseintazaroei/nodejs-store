@@ -1,4 +1,6 @@
 const createHttpError = require("http-errors");
+const { StatusCodes: HttpStatus } = require("http-status-codes");
+
 const { RoleModel } = require("../../../models/roles.model");
 const Controller = require("../controller");
 
@@ -19,8 +21,8 @@ class RoleController extends Controller {
                     }
                 }])
             if (!roles) throw createHttpError.NotFound("No Roles were found!")
-            return res.status(200).json({
-                status: 200,
+            return res.status(HttpStatus.OK).json({
+                status: HttpStatus.OK,
                 success: true,
                 data: {
                     roles
@@ -38,8 +40,8 @@ class RoleController extends Controller {
                 title, permissions: permissions ? permissions : null, description
             })
             if (!AddRoleResult) throw createHttpError.InternalServerError("Role was not added!")
-            return res.status(200).json({
-                status: 200,
+            return res.status(HttpStatus.CREATED).json({
+                status: HttpStatus.CREATED,
                 success: true,
                 data: {
                     message: "Role Was Added Successfully! 🎉✨🔥"
@@ -58,8 +60,8 @@ class RoleController extends Controller {
                 $set: BodyData
             })
             if (UpdateRoleResult.modifiedCount == 0) throw createHttpError.InternalServerError("Role was not updated")
-            return res.status(200).json({
-                status: 200,
+            return res.status(HttpStatus.OK).json({
+                status: HttpStatus.OK,
                 success: true,
                 data: {
                     message: "Role was updated successfully! 🎉✨🔥"
@@ -80,8 +82,8 @@ class RoleController extends Controller {
                 ]
             })
             if (deleteResult.deletedCount == 0) throw createHttpError.InternalServerError("Role Was Not Deleted")
-            return res.status(200).json({
-                status: 200,
+            return res.status(HttpStatus.OK).json({
+                status: HttpStatus.OK,
                 success: true,
                 data: {
                     message: "Role Was Removed Successfully! 🎉✨🔥"

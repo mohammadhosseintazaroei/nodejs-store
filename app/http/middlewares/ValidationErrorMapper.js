@@ -1,4 +1,5 @@
 const { validationResult } = require("express-validator")
+const { StatusCodes: HttpStatus } = require("http-status-codes");
 
 const validationErrorMapper = (req, res, next) => {
     messages = {}
@@ -7,8 +8,8 @@ const validationErrorMapper = (req, res, next) => {
         result?.errors.forEach(err => {
             messages[err.param] = err.msg;
         })
-        return res.status(400).json({
-            status: 400,
+        return res.status(HttpStatus.BAD_REQUEST).json({
+            status: HttpStatus.BAD_REQUEST,
             success: false, 
             messages
         })

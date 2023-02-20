@@ -1,4 +1,6 @@
 const { GraphQLString } = require("graphql");
+const { StatusCodes: HttpStatus } = require("http-status-codes");
+
 const {
   VerifyAccessTokenInGraphQL,
 } = require("../../http/middlewares/verifyAccessToken");
@@ -37,7 +39,7 @@ const BookmarkProduct = {
       message = "the product has been bookmarked succesfuly";
     } else message = "the product has been unbookmarked succesfuly";
     return {
-      statusCode: 200,
+      statusCode: HttpStatus.OK,
       data: {
         message,
       },
@@ -70,7 +72,7 @@ const BookmarkCourse = {
       message = "the course has been bookmarked succesfuly";
     } else message = "the course has been unbookmarked succesfuly";
     return {
-      statusCode: 200,
+      statusCode: HttpStatus.OK,
       data: {
         message,
       },
@@ -102,7 +104,7 @@ const BookmarkBlog = {
       message = "the blog has been bookmarked succesfuly";
     } else message = "the blog has been unbookmarked succesfuly";
     return {
-      statusCode: 200,
+      statusCode: HttpStatus.OK,
       data: {
         message,
       },

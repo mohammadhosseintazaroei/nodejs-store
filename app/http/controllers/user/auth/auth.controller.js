@@ -79,7 +79,7 @@ class UserAuthController extends Controller {
       const AccessToken = await SignAccessToken(user);
       const newRefreshToken = await SignRefreshToken(user._id);
       return res.json({
-        status: 200,
+        status: HttpStatus.OK,
         success: true,
         data: {
           accessToken: AccessToken,

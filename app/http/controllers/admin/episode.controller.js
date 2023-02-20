@@ -2,6 +2,8 @@ const { CreateEpisodeSchema } = require("../../validators/admin/course.schema");
 const Controller = require("../controller");
 const path = require("path");
 const { default: getVideoDurationInSeconds } = require("get-video-duration");
+const { StatusCodes: HttpStatus } = require("http-status-codes");
+
 const { getTime, DeleteInvalidPropertyInObject, CopyObject } = require("../../../utils/functions");
 const { CourseModel } = require("../../../models/course.model");
 const createHttpError = require("http-errors");
@@ -22,8 +24,8 @@ class EpisodeController extends Controller {
                 }
             })
             if (CreateEpisodeResult.modifiedCount == 0) throw createHttpError.InternalServerError("Episode was not added! ")
-            return res.status(200).json({
-                status: 200,
+            return res.status(HttpStatus.CREATED).json({
+                status: HttpStatus.CREATED,
                 success: true,
                 data: {
                     message: "Episode was added successfully! 🎉✨🔥"
@@ -45,8 +47,8 @@ class EpisodeController extends Controller {
                 }
             })
             if (DeleteResult.modifiedCount == 0) throw createHttpError.InternalServerError("Episode was not deleted! ")
-            return res.status(200).json({
-                status: 200,
+            return res.status(HttpStatus.OK).json({
+                status: HttpStatus.OK,
                 success: true,
                 data: {
                     message: "Episode was deleted successfully! 🎉✨🔥"
@@ -87,8 +89,8 @@ class EpisodeController extends Controller {
                 }
             })
             if (!EditResult.modifiedCount) throw createHttpError.InternalServerError("Episode was not edited! ")
-            return res.status(200).json({
-                status: 200,
+            return res.status(HttpStatus.OK).json({
+                status: HttpStatus.OK,
                 success: true,
                 data: {
                     message: "Episode was edited successfully! 🎉✨🔥"

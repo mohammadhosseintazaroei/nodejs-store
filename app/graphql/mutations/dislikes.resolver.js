@@ -1,4 +1,6 @@
 const { GraphQLString } = require("graphql");
+const { StatusCodes: HttpStatus } = require("http-status-codes");
+
 const {
   VerifyAccessTokenInGraphQL,
 } = require("../../http/middlewares/verifyAccessToken");
@@ -47,7 +49,7 @@ const DisLikeProduct = {
       message = "the product has been disliked succesfuly";
     } else message = "the product has been undisliked succesfuly";
     return {
-      statusCode: 201,
+      statusCode: HttpStatus.OK,
       data: {
         message,
       },
@@ -89,7 +91,7 @@ const DisLikeCourse = {
       message = "the course has been disliked succesfuly";
     } else message = "the course has been undisliked succesfuly";
     return {
-      statusCode: 201,
+      statusCode: HttpStatus.OK,
       data: {
         message,
       },
@@ -131,7 +133,7 @@ const DisLikeBlog = {
       message = "the blog has been disliked succesfuly";
     } else message = "the blog has been undisliked succesfuly";
     return {
-      statusCode: 201,
+      statusCode: HttpStatus.OK,
       data: {
         message,
       },

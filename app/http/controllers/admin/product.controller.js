@@ -5,6 +5,8 @@ const { CreateProductSchema } = require("../../validators/admin/product.schema")
 const Controller = require("../controller");
 const path = require("path");
 const { default: mongoose } = require("mongoose");
+const { StatusCodes: HttpStatus } = require("http-status-codes");
+
 const { MongoIdValidator } = require("../../validators/public");
 const ProductBlackList = {
     BOOKMARKS: "bookmarks",
@@ -32,8 +34,8 @@ class ProductController extends Controller {
                 title, short_text, text, category, count, price, type, tags, discount, images, features, supplier
             })
             if (!product) throw createHttpError.InternalServerError("Product was not Added")
-            return res.status(200).json({
-                status: 200,
+            return res.status(HttpStatus.CREATED).json({
+                status: HttpStatus.CREATED,
                 success: true,
                 data: {
                     product
@@ -58,8 +60,8 @@ class ProductController extends Controller {
             } else {
                 products = await this.FindAllProductsWithAggregate()
             }
-            return res.status(200).json({
-                status: 200,
+            return res.status(HttpStatus.OK).json({
+                status: HttpStatus.OK,
                 success: true,
                 data: {
                     products
@@ -75,8 +77,8 @@ class ProductController extends Controller {
             const { id } = req.params;
             const product = await this.FindProductById(id);
             if (!product) throw createHttpError.NotFound("No products with was found! 🐢")
-            return res.status(200).json({
-                status: 200,
+            return res.status(HttpStatus.OK).json({
+                status: HttpStatus.OK,
                 success: true,
                 data: {
                     product
@@ -98,8 +100,8 @@ class ProductController extends Controller {
             DeleteInvalidPropertyInObject(data, BlackListdata)
             const UpdateResult = await ProductModel.updateOne({ _id : product[0]._id }, { $set: data });
             if (UpdateResult.modifiedCount == 0) throw createHttpError.InternalServerError("Internal Server Error, Update was not done")
-            return res.status(200).json({
-                status: 200,
+            return res.status(HttpStatus.OK).json({
+                status: HttpStatus.OK,
                 success: true,
                 data: {
                     message: "Product successfully updated 🎉✨ "
@@ -116,8 +118,8 @@ class ProductController extends Controller {
             const product = await this.FindProductById(id);
             const deleteResult = await ProductModel.deleteOne({ _id: product[0]._id })
             if (deleteResult.deletedCount == 0) throw createHttpError.InternalServerError("Product was not deleted! 🐢")
-            return res.status(200).json({
-                status: 200,
+            return res.status(HttpStatus.OK).json({
+                status: HttpStatus.OK,
                 success: true,
                 data: {
                     message: "Product was deleted successfully 🎉✨"

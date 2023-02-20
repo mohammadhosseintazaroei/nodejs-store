@@ -5,6 +5,7 @@ const path = require("path");
 const { CreateCourseSchema } = require("../../validators/admin/course.schema");
 const createHttpError = require("http-errors");
 const { default: mongoose } = require("mongoose");
+const { StatusCodes: HttpStatus } = require("http-status-codes");
 
 class CourseController extends Controller {
     async GetAllCourses(req, res, next) {
@@ -27,8 +28,8 @@ class CourseController extends Controller {
                 mobile: 1, email: 1 }}
             ])
             .sort({ _id: -1 })
-            return res.status(200).json({
-                status: 200,
+            return res.status(HttpStatus.OK).json({
+                status: HttpStatus.OK,
                 success: true,
                 data: {
                     courses
@@ -58,8 +59,8 @@ class CourseController extends Controller {
                 teacher
             })
             if (!course?._id) throw createHttpError.InternalServerError("Course was not added")
-            return res.status(200).json({
-                status: 201,
+            return res.status(HttpStatus.CREATED).json({
+                status: HttpStatus.CREATED,
                 success: true,
                 data: {
                     message: "Course was created successfully 🎉✨"
@@ -76,8 +77,8 @@ class CourseController extends Controller {
             const course = await CourseModel.findOne({ _id: id });
             course.time =  GetVideosTotalTime(course.chapters)
             if (!course) throw createHttpError.NotFound("No course was found with that Is")
-            return res.status(200).json({
-                status: 200,
+            return res.status(HttpStatus.OK).json({
+                status: HttpStatus.OK,
                 success: true,
                 data: {
                     course
@@ -107,8 +108,8 @@ class CourseController extends Controller {
             if(updateCourseResult.modifiedCount == 0)
                 throw createHttpError.InternalServerError("Course was Not Updated")
 
-            return res.json({
-                status: 201,
+            return res.status(HttpStatus.OK).json({
+                status: HttpStatus.OK,
                 success: true,
                 data: {
                     message: "Course was updates successfully! 🔥✨🎉"

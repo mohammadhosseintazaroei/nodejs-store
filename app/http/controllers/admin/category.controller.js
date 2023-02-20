@@ -1,5 +1,7 @@
 const { CategoryModel } = require("../../../models/categories.model");
 const createError = require("http-errors");
+const { StatusCodes: HttpStatus } = require("http-status-codes");
+
 const Controller = require("../controller");
 const { CreateCategoryValidation } = require("../../validators/admin/category.schema");
 const { MongoIdValidator } = require("../../validators/public");
@@ -13,11 +15,11 @@ class CategoryController extends Controller {
             const { title, parent } = req.body;
 
             const existCheck = await this.CheckCategoryExistence(title);
-            if (existCheck) throw { status: 400, success: false, message: "Category already exists! 🗿" }
+            if (existCheck) throw { status: HttpStatus.BAD_REQUEST, success: false, message: "Category already exists! 🗿" }
             const createResult = await CategoryModel.create({ title, parent })
             if (!createResult) throw createError.InternalServerError("Category was not created 🥲");
-            return res.status(201).json({
-                status: 201,
+            return res.status(HttpStatus.CREATED).json({
+                status: HttpStatus.CREATED,
                 success: true,
                 data: {
                     message: "Category was created successfully 🎉✨"
@@ -45,8 +47,8 @@ class CategoryController extends Controller {
             if (!findResult) throw createError.NotFound("Category does not exist")
             const updateResult = await CategoryModel.updateOne({ _id: id }, { $set: data })
             if (updateResult.modifiedCount == 0) throw createError.BadRequest("Nothing was updated")
-            return res.status(200).json({
-                status: 200,
+            return res.status(HttpStatus.OK).json({
+                status: HttpStatus.OK,
                 success: true,
                 data: {
                     message: "Category Edited Successfully! 🎉✨"
@@ -70,8 +72,8 @@ class CategoryController extends Controller {
                 ]
             });
             if (deleteResult.deletedCount == 0) throw { status: 500, success: false, message: "Category was not deleted from database" }
-            return res.status(200).json({
-                statius: 200,
+            return res.status(HttpStatus.OK).json({
+                statius: HttpStatus.OK,
                 success: true,
                 data: {
                     message: "Category was successfully deleted 🎉✨"
@@ -108,8 +110,8 @@ class CategoryController extends Controller {
                     }
                 }
             ])
-            return res.status(200).json({
-                status: 200,
+            return res.status(HttpStatus.OK).json({
+                status: HttpStatus.OK,
                 success: true,
                 data: {
                     category
@@ -148,8 +150,8 @@ class CategoryController extends Controller {
             //     }
             // ])
             const categories = await CategoryModel.find({ parent: undefined }, { __v: 0, id: 0 })
-            return res.status(200).json({
-                status: 200,
+            return res.status(HttpStatus.OK).json({
+                status: HttpStatus.OK,
                 success: true,
                 data: {
                     categories
@@ -165,8 +167,8 @@ class CategoryController extends Controller {
             const categories = await CategoryModel.aggregate([
                 { $match: {} }, { $project: { __v: 0 } }
             ])
-            return res.status(200).json({
-                status: 200,
+            return res.status(HttpStatus.OK).json({
+                status: HttpStatus.OK,
                 success: true,
                 data: {
                     categories
@@ -181,8 +183,8 @@ class CategoryController extends Controller {
         try {
             const parents = await CategoryModel.find({ parent: undefined }, { __v: 0 })
             if (!parents) throw createError.NotFound("No parent category was found")
-            return res.status(200).json({
-                status: 200,
+            return res.status(HttpStatus.OK).json({
+                status: HttpStatus.OK,
                 success: true,
                 data: {
                     parents
@@ -198,9 +200,9 @@ class CategoryController extends Controller {
             await MongoIdValidator.validateAsync(req.params);
             const { id } = req.params;
             const children = await CategoryModel.find({ parent: id }, { __v: 0 });
-            if (!children) throw { status: 404, success: false, message: "No children Category found for this parent" }
-            return res.status(200).json({
-                status: 200,
+            if (!children) throw { status: HttpStatus.NOT_FOUND, success: false, message: "No children Category found for this parent" }
+            return res.status(HttpStatus.OK).json({
+                status: HttpStatus.OK,
                 success: true,
                 data: {
                     children

@@ -1,4 +1,6 @@
 const createHttpError = require("http-errors");
+const { StatusCodes: HttpStatus } = require("http-status-codes");
+
 const { UserModel } = require("../../../models/user.model");
 const { DeleteInvalidPropertyInObject } = require("../../../utils/functions");
 const Controller = require("../controller");
@@ -19,8 +21,8 @@ class UserController extends Controller {
             }
             Users = await UserModel.find({});
             if (!Users) throw createHttpError.NotFound("No Users were found! ")
-            return res.status(200).json({
-                status: 200,
+            return res.status(HttpStatus.OK).json({
+                status: HttpStatus.OK,
                 success: true,
                 data: {
                     Users
@@ -39,8 +41,8 @@ class UserController extends Controller {
             DeleteInvalidPropertyInObject(data, BlackList)
             const UpdateResult = await UserModel.updateOne({ _id: userID }, { $set: data })
             if (UpdateResult.modifiedCount == 0) throw createHttpError.InternalServerError("Update was not done! ")
-            return res.status(200).json ({
-                status: 200,
+            return res.status(HttpStatus.OK).json ({
+                status: HttpStatus.OK,
                 success: true,
                 data: {
                     message: "User was updated successfully! 🎉✨🔥"
@@ -54,8 +56,8 @@ class UserController extends Controller {
     async UserProfile(req, res, next){
         try {
             const user = req.user;
-            return res.status(200).json({
-                status: 200,
+            return res.status(HttpStatus.OK).json({
+                status: HttpStatus.OK,
                 success: true,
                 data: {
                     user

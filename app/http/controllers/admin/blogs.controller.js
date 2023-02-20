@@ -1,6 +1,8 @@
 const createHttpError = require("http-errors");
 const { default: mongoose } = require("mongoose");
 const path = require("path");
+const { StatusCodes: HttpStatus, StatusCodes } = require("http-status-codes");
+
 const { BlogModel } = require("../../../models/blog.model");
 const { DeleteFileInPublic } = require("../../../utils/functions");
 const { CreateBlogSchema } = require("../../validators/admin/blog.schema");
@@ -17,7 +19,7 @@ class BlogController extends Controller {
             const CreateResult = await BlogModel.create({ author, title, short_text, text, image, category, tags })
             if (!CreateResult) throw createHttpError.InternalServerError("Blog was not created")
             return res.json({
-                status: 200,
+                status: HttpStatus.OK,
                 success: true,
                 data: {
                     message: "Blog was posted successfully ✨🎉"
@@ -44,8 +46,8 @@ class BlogController extends Controller {
                 }
             ])
   
-            return res.status(200).json({
-                status: 200,
+            return res.status(HttpStatus.OK).json({
+                status: HttpStatus.OK,
                 success: true,
                 data: {
                     blogs
@@ -60,8 +62,8 @@ class BlogController extends Controller {
         try {
             const { id } = req.params;
             const blog = await this.FindBlog(id);
-            return res.status(200).json({
-                status: 200,
+            return res.status(HttpStatus.OK).json({
+                status: HttpStatus.OK,
                 success: true,
                 data: {
                     blog
@@ -90,8 +92,8 @@ class BlogController extends Controller {
             })
             const UpdateResult = await BlogModel.updateOne({ _id: id }, { $set: data })
             if (UpdateResult.modifiedCount == 0) throw createHttpError.InternalServerError("Update was not done 🗿")
-            return res.status(200).json({
-                status: 200,
+            return res.status(HttpStatus.OK).json({
+                status: HttpStatus.OK,
                 success: true,
                 data: {
                     message: "Blog updated successfully 🎉✨",
@@ -108,8 +110,8 @@ class BlogController extends Controller {
             const { id } = req.params;
             const deleteResult = await BlogModel.deleteOne({ _id : id });
             if (deleteResult.deletedCount == 0) throw createHttpError.InternalServerError("Blog was not deleted")
-            return res.status(200).json({
-                status: 200,
+            return res.status(HttpStatus.OK).json({
+                status: HttpStatus.OK,
                 success: true,
                 data: {
                     message: "Successfully deleted 🎉✨ "

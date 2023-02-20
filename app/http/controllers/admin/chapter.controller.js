@@ -1,5 +1,7 @@
 const createHttpError = require("http-errors");
 const { default: mongoose } = require("mongoose");
+const { StatusCodes: HttpStatus } = require("http-status-codes");
+
 const { CourseModel } = require("../../../models/course.model");
 const { DeleteInvalidPropertyInObject } = require("../../../utils/functions");
 const Controller = require("../controller");
@@ -19,8 +21,8 @@ class ChapterController extends Controller {
                 }
             })
             if (SaveChapterResult.modifiedCount == 0) throw createHttpError.InternalServerError("Chapter was not added")
-            return res.status(200).json({
-                status: 200,
+            return res.status(HttpStatus.CREATED).json({
+                status: HttpStatus.CREATED,
                 success: true,
                 data: {
                     message: "Chpater was added to course! 🎉✨🔥"
@@ -36,8 +38,8 @@ class ChapterController extends Controller {
         try {
             const { courseID } = req.params;
             const chapters = await this.GetChaptersOfCourse(courseID)
-            return res.status(200).json({
-                status: 200,
+            return res.status(HttpStatus.OK).json({
+                status: HttpStatus.OK,
                 success: true,
                 data: {
                     chapters
@@ -75,8 +77,8 @@ class ChapterController extends Controller {
                 }
             })
             if (UpdateChapterResult.modifiedCount == 0) throw createHttpError.InternalServerError("Update was not done! ")
-            return res.status(200).json({
-                status: 200,
+            return res.status(HttpStatus.OK).json({
+                status: HttpStatus.OK,
                 success: true,
                 data: {
                     message: "Update was successfully done! 🔥✨🎉"
@@ -97,8 +99,8 @@ class ChapterController extends Controller {
                 $set: { "chapters.$": data }
             })
             if (UpdateChapterResult.modifiedCount == 0) throw createHttpError.InternalServerError("Chapter was not updated")
-            return res.status(200).json({
-                status: 200,
+            return res.status(HttpStatus.OK).json({
+                status: HttpStatus.OK,
                 success: true,
                 data: {
                     message: "Chapter was updated successfully 🎉✨"
