@@ -4,7 +4,7 @@ const {
   ACCESS_TOKEN_SECRET_KEY,
 } = require("../../utils/constants");
 const { UserModel } = require("../../models/user.model");
-const redisClient = require("../../utils/init_redis");
+const redisClient = require("../../utils/initRedis");
 const { json } = require("express");
 const createHttpError = require("http-errors");
 
@@ -22,12 +22,11 @@ async function verifyAccessToken(req, res, next) {
         if (err)
           throw createHttpError.Unauthorized("Login to your account! 🐢");
         const { mobile } = payload || {};
+        console.log(mobile)
         const user = await UserModel.findOne(
           { mobile },
           { password: 0, otp: 0 }
         );
-        await console.log("D" + user);
-
         if (!user)
           throw createHttpError.Unauthorized("Account was not found! 🐢");
         req.user = user;
@@ -45,16 +44,18 @@ const verifyRefreshToken = (token) => {
   return new Promise((resolve, reject) => {
     JWT.verify(token, REFRESH_TOKEN_SECRET_KEY, async (err, payload) => {
       if (err)
+      console.log(err);
         reject(
           createHttpError.Unauthorized("Please Log in to your account! 🐢")
         );
 
       const { mobile } = payload || {};
+
       const user = await UserModel.findOne({ mobile }, { password: 0, otp: 0 });
 
       if (!user)
         reject(createHttpError.Unauthorized("No Account Was found! 🐢"));
-
+console.log(user)
       const refreshToken = await redisClient.get(String(user._id));
       if (token === refreshToken) resolve(mobile);
 

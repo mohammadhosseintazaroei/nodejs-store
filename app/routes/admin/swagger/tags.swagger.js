@@ -1,6 +1,8 @@
 /**
  * @swagger
  *  tags:
+ *      -   name: Support
+ *          description: 
  *      -   name: AuthRoutes
  *          description: User Auth Routes
  *      -   name: RBAC(Admin-Panel)

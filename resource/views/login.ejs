@@ -1,0 +1,26 @@
+<div class="container">
+  <%if(error){%>
+  <h3 style="color: rgb(238, 68, 68)"><%=error%></h3>
+  <%}%>
+  <div class="row">
+    <div class="col-2"></div>
+    <div class="col-8">
+      <form action="http://localhost:8000/support/login" method="post">
+        <input
+          type="text"
+          class="form-control"
+          name="mobile"
+          id="mobile"
+          placeholder="09385051602"
+        />
+        <input
+          type="submit"
+          value="submit"
+          class="form-control"
+          id="mobile"
+          placeholder="09385051602"
+        />
+      </form>
+    </div>
+  </div>
+</div>

@@ -20,6 +20,7 @@ const Controller = require("../../controller");
 class UserAuthController extends Controller {
   async GetOtp(req, res, next) {
     try {
+console.log(req.body.mobile)
       await GetOtpSchema.validateAsync(req.body);
       const { mobile } = req.body;
       let userResult = await UserModel.findOne({ mobile }).select({
@@ -29,6 +30,7 @@ class UserAuthController extends Controller {
         const now = Date.now();
         if (Number( userResult.otp.expiresIn) > now) {
           return res.status(HttpStatus.OK).json({
+            mobile,
             status: HttpStatus.OK,
             message: "you have to wait until the verification code expires",
           });
@@ -127,5 +129,6 @@ class UserAuthController extends Controller {
 }
 
 module.exports = {
+  
   UserAuthController: new UserAuthController(),
 };

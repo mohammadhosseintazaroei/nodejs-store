@@ -21,6 +21,8 @@ const UserSchema = new Schema({
     mobile : { type : String, required : true },
     email : { type : String, lowercase : true },
     password : { type : String },
+    avatar: { type: String },
+
     otp : { type : Object, default : {
         code : 0,
         expiresIn : 0
@@ -28,6 +30,7 @@ const UserSchema = new Schema({
     bills : { type : [], default : [] },
     discount : { type : Number, default : 0 },
     birthday : { type : String },
+    token:{type:String,default:""},
     Role : { type : String, default : "USER", ref: "permissions" },
     Courses: { type: [ Types.ObjectId ], ref: "course", default: [] },
     Products: { type: [ Types.ObjectId ], ref: "product", default: [] },
@@ -40,7 +43,10 @@ const UserSchema = new Schema({
 })
 
 UserSchema.index({ mobile: "text", username: "text", first_name: "text", last_name: "text" })
-
+UserSchema.virtual("avatarURL").get(function () {
+    return this.avatar? `${process.env.BASE_URL}:${process.env.APP_PORT}/${this.avatar}` : null;
+  });
+  
 module.exports = {
     UserModel: model("user", UserSchema)
 }

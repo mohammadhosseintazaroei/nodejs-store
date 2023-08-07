@@ -7,7 +7,7 @@ const {
   ACCESS_TOKEN_SECRET_KEY,
 } = require("./constants");
 const createError = require("http-errors");
-const redisClient = require("./init_redis");
+const redisClient = require("./initRedis");
 
 function GenerateRandomNumber() {
   return Math.floor(Math.random() * 90000) + 10000;

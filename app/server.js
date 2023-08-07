@@ -8,6 +8,12 @@ const createError = require("http-errors");
 const swaggerUI = require("swagger-ui-express");
 const swaggerJsDoc = require("swagger-jsdoc");
 const cors = require("cors")
+const ExpressEjsLayouts = require("express-ejs-layouts");
+const { initialSocket } = require('./utils/initSocket');
+const { socketHandler } = require('./socket.io');
+const session = require('express-session');
+const cookieParser = require('cookie-parser');
+const { COOKIE_PARSER_SECRET_KEY } = require('./utils/constants');
 module.exports = class Application {
     #app = express();
     #PORT;
@@ -16,6 +22,7 @@ module.exports = class Application {
         this.#PORT = PORT;
         this.#DB_URL = DB_URL;
         this.ConfigApplication();
+        this.InitTemplateEngine();
         this.ConnectToMongoDb();
         this.CreateServer();
         this.CreateRoutes();
@@ -29,7 +36,7 @@ module.exports = class Application {
         this.#app.use(express.static(path.join(__dirname, '..', "public")));
         this.#app.use(cors({
             origin: 'http://localhost:3000',
-            methods: ['POST', 'PUT', 'GET', 'OPTIONS', 'HEAD'],
+            methods: ['POST', 'PUT', 'GET', 'OPTIONS', 'HEAD',"DELETE","PATCH"],
             credentials: true
           }));
         this.#app.use("/swagger", swaggerUI.serve)
@@ -70,9 +77,13 @@ module.exports = class Application {
 
     CreateServer() {
         const http = require('http');
-        http.createServer(this.#app).listen(this.#PORT, () => {
+        const server = http.createServer(this.#app)
+        const io = initialSocket(server)
+        socketHandler(io)
+        server.listen(this.#PORT, () => {
             console.log(`http://localhost:${this.#PORT}/swagger/`);
             console.log(`http://localhost:${this.#PORT}/graphql/`);
+            console.log(`http://localhost:${this.#PORT}/support/`);
         });
     }
 
@@ -98,9 +109,27 @@ module.exports = class Application {
     }
 
     InitRedis() {
-        require("./utils/init_redis");
+        require("./utils/initRedis");
     }
-
+    InitTemplateEngine() {
+        this.#app.use(ExpressEjsLayouts)
+        this.#app.set("view engine","ejs")
+        this.#app.set("views","resource/views")
+        this.#app.set("layout extractStyles","true")
+        this.#app.set("layout extractScripts","true")
+        this.#app.set("layout","./layouts/master")
+    }
+    initClientSession(){
+        this.#app.use(cookieParser(COOKIE_PARSER_SECRET_KEY))
+        this.#app.use(session({
+            secret:COOKIE_PARSER_SECRET_KEY,
+            resave:true,
+            saveUninitialized:true,
+            cookie:{
+                secure:true
+            }
+        }))
+    }
     CreateRoutes() {
         this.#app.use(Router);
     }
