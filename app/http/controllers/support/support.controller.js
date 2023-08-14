@@ -32,15 +32,8 @@ class SupportController extends Controller {
       user.token = token;
       user.save();
       res.cookie("authorization", token, {
-        maxAge:100*60*60*24,
-        httpOnly: true,
         signed: true,
-      })
-
-      // return res.render("login.ejs", {
-      //   token,
-      //   error: undefined,
-      // });
+      });
       return res.redirect("/support");
     } catch (error) {
       next(error);

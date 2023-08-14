@@ -32,6 +32,7 @@ module.exports = class Application {
     ConfigApplication() {
         this.#app.use(morgan("dev"))
         this.#app.use(express.json())
+        this.#app.use(cookieParser(COOKIE_PARSER_SECRET_KEY))
         this.#app.use(express.urlencoded({ extended: true }));
         this.#app.use(express.static(path.join(__dirname, '..', "public")));
         this.#app.use(cors({
@@ -120,15 +121,15 @@ module.exports = class Application {
         this.#app.set("layout","./layouts/master")
     }
     initClientSession(){
-        this.#app.use(cookieParser(COOKIE_PARSER_SECRET_KEY))
-        this.#app.use(session({
-            secret:COOKIE_PARSER_SECRET_KEY,
-            resave:true,
-            saveUninitialized:true,
-            cookie:{
-                secure:true
-            }
-        }))
+        // this.#app.use(cookieParser(COOKIE_PARSER_SECRET_KEY))
+        // this.#app.use(session({
+        //     secret:COOKIE_PARSER_SECRET_KEY,
+        //     resave:true,
+        //     saveUninitialized:true,
+        //     cookie:{
+        //         secure:true
+        //     }
+        // }))
     }
     CreateRoutes() {
         this.#app.use(Router);
