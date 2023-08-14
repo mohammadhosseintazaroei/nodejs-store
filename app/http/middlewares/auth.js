@@ -4,7 +4,7 @@ async function checkLogin(req, res, next) {
   try {
     const token = req.signedCookies?.authorization;
     if (token) {
-      const user = await UserModel.findOne({ token });
+      const user = await UserModel.findOne({ token },{Products:0,Courses:0});
       if (user) {
         req.user = user;
         return next();
